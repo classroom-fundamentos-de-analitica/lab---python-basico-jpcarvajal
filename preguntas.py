@@ -272,6 +272,3 @@ def pregunta_12():
 
     """
     return
-
-
-#print(pregunta_02())
