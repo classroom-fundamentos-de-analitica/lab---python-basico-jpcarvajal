@@ -16,12 +16,14 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
-
     Rta/
     214
-
     """
-    return
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [int(x.strip().split('\t')[1]) for x in content]
+    return sum(content)
+
 
 
 def pregunta_02():
@@ -39,7 +41,17 @@ def pregunta_02():
     ]
 
     """
-    return
+
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [(x.strip().split('\t')[0]) for x in content]
+        content.sort()
+        letras = []
+        for i in content:
+            if i not in letras:
+                letras.append((i, content.count(i)))
+
+    return letras
 
 
 def pregunta_03():
