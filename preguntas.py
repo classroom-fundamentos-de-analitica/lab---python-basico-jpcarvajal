@@ -47,11 +47,13 @@ def pregunta_02():
         content = [(x.strip().split('\t')[0]) for x in content]
         content.sort()
         letras = []
+        cuenta = []
         for i in content:
             if i not in letras:
-                letras.append((i, content.count(i)))
+                letras.append(i)
+                cuenta.append((i, content.count(i)))
 
-    return letras
+    return cuenta
 
 
 def pregunta_03():
@@ -270,3 +272,6 @@ def pregunta_12():
 
     """
     return
+
+
+#print(pregunta_02())
