@@ -190,7 +190,7 @@ def pregunta_06():
             elif int(x[1]) > int(dicc[i][1]):
                 dicc[i][1] = int(x[1])
             elif int(x[1]) < int(dicc[i][0]):
-                dicc[i][0] = x[1]
+                dicc[i][0] = int(x[1])
         
         for i in dicc:
             lista.append((i, dicc[i][0], dicc[i][1]))
