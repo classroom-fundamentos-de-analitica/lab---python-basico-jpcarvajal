@@ -410,4 +410,3 @@ def pregunta_12():
             diccFinal[i[0]] = i[1]
     return diccFinal
 
-print(pregunta_12())
