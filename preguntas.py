@@ -16,12 +16,14 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
-
     Rta/
     214
-
     """
-    return
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [int(x.strip().split('\t')[1]) for x in content]
+    return sum(content)
+
 
 
 def pregunta_02():
@@ -39,7 +41,19 @@ def pregunta_02():
     ]
 
     """
-    return
+
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [(x.strip().split('\t')[0]) for x in content]
+        content.sort()
+        letras = []
+        cuenta = []
+        for i in content:
+            if i not in letras:
+                letras.append(i)
+                cuenta.append((i, content.count(i)))
+
+    return cuenta
 
 
 def pregunta_03():
@@ -57,8 +71,21 @@ def pregunta_03():
     ]
 
     """
-    return
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [(x.strip().split('\t')[:2]) for x in content]
+        dicc = {}
+        tuplas = []
+        for i in content:
+            if not i[0] in dicc:
+                dicc[i[0]]=int(i[1])
+            else:
+                dicc[i[0]]+=int(i[1])
+        for i in dicc:
+            tuplas.append((i, dicc[i]))
+        tuplas.sort(key=lambda x: x[0])
 
+    return tuplas
 
 def pregunta_04():
     """
@@ -82,8 +109,18 @@ def pregunta_04():
     ]
 
     """
-    return
-
+def pregunta_04():
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [x.strip().split('\t')[2][5:7] for x in content]
+        content.sort()
+        meses = []
+        cuenta = []
+        for i in content:
+            if i not in meses:
+                meses.append(i)
+                cuenta.append((i, content.count(i)))
+    return cuenta
 
 def pregunta_05():
     """
@@ -100,8 +137,22 @@ def pregunta_05():
     ]
 
     """
-    return
 
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [(x.strip().split('\t')[:2]) for x in content]
+        dicc = {}
+        tuplas = []
+        for i in content:
+            if not i[0] in dicc:
+                dicc[i[0]]=[(int(i[1]))]
+            else:
+                dicc[i[0]].append(int(i[1]))
+        for i in dicc:
+            tuplas.append((i, max(dicc[i]), min(dicc[i])))
+        tuplas.sort(key=lambda x: x[0])
+
+    return tuplas
 
 def pregunta_06():
     """
@@ -125,8 +176,28 @@ def pregunta_06():
     ]
 
     """
-    return
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [(x.strip().split('\t')[4]) for x in content]
+        content = ','.join(content).split(',')
+        content = [x.split(':') for x in content]
+        dicc = {}
+        lista = []
+        for x in content:
+            i = x[0]
+            if not i in dicc:
+                dicc[i] = [int(x[1]),int(x[1])]
+            elif int(x[1]) > int(dicc[i][1]):
+                dicc[i][1] = int(x[1])
+            elif int(x[1]) < int(dicc[i][0]):
+                dicc[i][0] = int(x[1])
+        
+        for i in dicc:
+            lista.append((i, dicc[i][0], dicc[i][1]))
+        
+        lista.sort(key=lambda x: x[0])
 
+    return lista
 
 def pregunta_07():
     """
@@ -149,8 +220,20 @@ def pregunta_07():
     ]
 
     """
-    return
 
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [x.strip().split('\t')[0:2] for x in content]
+        numeros = sorted(list(set([int(x[1]) for x in content])))
+        lista = []
+        for i in numeros:
+            letras = []
+            for x in content:
+                if int(x[1]) == i:
+                    letras.append(x[0])
+            lista.append((int(i), letras))
+
+    return lista
 
 def pregunta_08():
     """
@@ -174,8 +257,19 @@ def pregunta_08():
     ]
 
     """
-    return
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [x.strip().split('\t')[0:2] for x in content]
+        numeros = sorted(list(set([int(x[1]) for x in content])))
+        lista = []
+        for i in numeros:
+            letras = []
+            for x in content:
+                if int(x[1]) == i:
+                    letras.append(x[0])
+            lista.append((int(i), sorted(list(set(letras)))))
 
+    return lista
 
 def pregunta_09():
     """
@@ -197,8 +291,18 @@ def pregunta_09():
     }
 
     """
-    return
 
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [x.strip().split('\t')[-1] for x in content]
+        content = ','.join(content).split(',')
+        content = [x.split(':')[0] for x in content]
+        keys = sorted(list(set(content)))
+        dicc = {}
+        for i in keys:
+            dicc[i] = content.count(i)
+
+    return dicc
 
 def pregunta_10():
     """
@@ -218,8 +322,15 @@ def pregunta_10():
 
 
     """
-    return
 
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [x.strip().split('\t') for x in content]
+        lista = []
+        for i in content:
+            lista.append((i[0], len(i[3].split(',')), len(i[4].split(','))))
+
+    return lista
 
 def pregunta_11():
     """
@@ -239,8 +350,26 @@ def pregunta_11():
 
 
     """
-    return
-
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [x.strip().split('\t')[1:5] for x in content]
+        dicc = {}
+        lista = []
+        diccFinal = {}
+        for i in content:
+            x = i[0]
+            for letra in i[2].split(','):
+                print(letra)
+                if not letra in dicc:
+                    dicc[letra]=int(x)
+                else:
+                    dicc[letra]+=int(x)
+        for i in dicc:
+            lista.append((i,dicc[i]))
+            lista.sort(key=lambda x: x[0])
+        for i in lista:
+            diccFinal[i[0]] = i[1]
+    return diccFinal
 
 def pregunta_12():
     """
@@ -257,4 +386,27 @@ def pregunta_12():
     }
 
     """
-    return
+    with open('data.csv') as file:
+        content = file.readlines()
+        content = [x.strip().split('\t') for x in content]
+        dicc = {}
+        ordenar = []
+        diccFinal = {}
+        for i in content:
+            lista = []
+            for x in i[4].split(','):
+                if ':' in x:
+                    lista.append(map(str.strip, x.split(':', 1)))
+            lista = dict(lista)
+            lista = dict([a, int(x)] for a, x in lista.items())
+            if not i[0] in dicc:
+                dicc[i[0]]=sum(lista.values())
+            else:
+                dicc[i[0]]+=sum(lista.values())
+        for i in dicc:
+            ordenar.append((i,dicc[i]))
+            ordenar.sort(key=lambda x: x[0])
+        for i in ordenar:
+            diccFinal[i[0]] = i[1]
+    return diccFinal
+
